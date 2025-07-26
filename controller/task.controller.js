@@ -10,12 +10,12 @@ exports.addTask = async (req, res) => {
     status,
     userId: req.user.id
   });
-  res.status(201).json(task);
+  res.status(201).json({status: true, data:task});
 };
 
 exports.getTasks = async (req, res) => {
   const tasks = await Task.findAll({ where: { userId: req.user.id } });
-  res.json(tasks);
+  res.status(200).json({status: true, data: tasks});
 };
 
 
@@ -34,12 +34,12 @@ exports.getTaskById = async (req, res) => {
     });
 
     if (!task) {
-      return res.status(404).json({ error: 'Task not found' });
+      return res.status(404).json({ status: false, error: 'Task not found' });
     }
 
-   res.status(200).json(task);
+   res.status(200).json({status: true, data: task});
   } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve task' });
+    res.status(500).json({status: false, error: 'Failed to retrieve task' });
   }
 };
 
@@ -48,7 +48,7 @@ exports.updateTask = async (req, res) => {
   const { id } = req.params;
   const { title, description, dueDate, status } = req.body;
   const task = await Task.findOne({ where: { id, userId: req.user.id } });
-  if (!task) return res.status(404).json({ error: 'Task not found' });
+  if (!task) return res.status(404).json({ status: false, error: 'Task not found' });
 
   task.title = title ?? task.title;
   task.description = description ?? task.description;

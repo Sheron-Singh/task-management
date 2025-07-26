@@ -22,6 +22,7 @@ const sequelize = require("../config/database.js");
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
+      
     }
   }, {
     timestamps: true

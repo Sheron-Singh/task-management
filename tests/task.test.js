@@ -7,13 +7,13 @@ let token;
 beforeAll(async () => {
   await sequelize.sync({ force: true });
   await request(app).post('/register').send({
-    fullname: 'User',
-    email: 'user@example.com',
-    password: 'pass123'
+    fullname: 'Sheron',
+    email: 'singh@example.com',
+    password: '123456'
   });
   const loginRes = await request(app).post('/login').send({
-    email: 'user@example.com',
-    password: 'pass123'
+    email: 'singh@example.com',
+    password: '123456'
   });
   token = loginRes.body.token;
 });
